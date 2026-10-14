@@ -229,12 +229,15 @@ export default class NowPlaying extends Extension {
         this._pill = pill;
         global.display.connectObject('workareas-changed', () => this._syncSize(), this);
         this._syncSize();
-        // Right side, just left of the performance gauge (or first, if the
-        // gauge isn't loaded yet).
+        // Leftmost item on the right side, and it stays there when other
+        // extensions load later and also ask for the first slot.
         const rightBox = Main.panel._rightBox;
-        const gauge = Main.panel.statusArea['system-monitor-panel@arjun']?.container;
-        const idx = Math.max(0, gauge ? rightBox.get_children().indexOf(gauge) : 0);
-        Main.panel.addToStatusArea(this.uuid, this._button, idx, 'right');
+        Main.panel.addToStatusArea(this.uuid, this._button, 0, 'right');
+        rightBox.connectObject('child-added', () => {
+            const container = this._button?.container;
+            if (container && rightBox.get_child_at_index(0) !== container)
+                rightBox.set_child_at_index(container, 0);
+        }, this);
         this._sync();
 
         const bus = Gio.DBus.session;
@@ -403,6 +406,7 @@ export default class NowPlaying extends Extension {
         this._session = null;
         this._fetching = null;
         global.display.disconnectObject(this);
+        Main.panel._rightBox.disconnectObject(this);
         this._pill = null;
         this._tooltip?.destroy();
         this._tooltip = null;
