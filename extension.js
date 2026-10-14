@@ -229,8 +229,12 @@ export default class NowPlaying extends Extension {
         this._pill = pill;
         global.display.connectObject('workareas-changed', () => this._syncSize(), this);
         this._syncSize();
-        // Left box, right after Activities / the workspace dots.
-        Main.panel.addToStatusArea(this.uuid, this._button, Main.panel._leftBox.get_n_children(), 'left');
+        // Right side, just left of the performance gauge (or first, if the
+        // gauge isn't loaded yet).
+        const rightBox = Main.panel._rightBox;
+        const gauge = Main.panel.statusArea['system-monitor-panel@arjun']?.container;
+        const idx = Math.max(0, gauge ? rightBox.get_children().indexOf(gauge) : 0);
+        Main.panel.addToStatusArea(this.uuid, this._button, idx, 'right');
         this._sync();
 
         const bus = Gio.DBus.session;
