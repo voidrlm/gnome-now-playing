@@ -1,0 +1,6 @@
+{
+  "uuid": "now-playing@arjun",
+  "name": "Now Playing",
+  "description": "Current track from any MPRIS media player (Spotify, browsers, VLC, ...) in the top bar, with playback controls.",
+  "shell-version": ["50"]
+}
