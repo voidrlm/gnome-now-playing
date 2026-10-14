@@ -2,6 +2,8 @@
 
 A GNOME Shell extension that shows the current track from any MPRIS media player (Spotify, browsers, VLC, ...) in the top bar, with playback controls.
 
+![Now Playing pill in the top bar](screenshots/pill.png)
+
 Requires GNOME Shell 50.
 
 ## Install
