@@ -4,6 +4,8 @@ A GNOME Shell extension that shows the current track from any MPRIS media player
 
 ![Now Playing pill in the top bar](screenshots/panel.png)
 
+![Hover to see the track and artist](screenshots/tooltip.png)
+
 Requires GNOME Shell 50.
 
 <details><summary>Where it sits in the top bar</summary>
